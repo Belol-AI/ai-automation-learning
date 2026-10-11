@@ -1,0 +1,157 @@
+{
+  "name": "Webhook + IF + Telegram",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "e9c745d7-4397-49e0-ba67-d85de84942d0",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "3bc7e8df-7825-43a5-8141-698d167b7805",
+      "name": "Webhook",
+      "webhookId": "e9c745d7-4397-49e0-ba67-d85de84942d0"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b04692ca-8c52-424f-803a-6e7b80131e96",
+              "leftValue": "={{ $json.body.budget }}",
+              "rightValue": 5000,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        224,
+        0
+      ],
+      "id": "ec80d154-e3b0-47d9-9474-0011fa317939",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "chatId": "1063096391",
+        "text": "=Новая заявка!\nИмя: {{ $json.body.name }}\nБюджет: {{ $json.body.budget }}\nСрочно: {{ $json.body.urgent }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        -96
+      ],
+      "id": "e7b742db-2d42-4d85-b032-464d93ef8605",
+      "name": "Send a text message",
+      "webhookId": "5f364a65-01d4-495c-8fd7-7404fdac722c",
+      "credentials": {
+        "telegramApi": {
+          "id": "YZpgCocNiMEzfq3c",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "1063096391",
+        "text": "=Новая заявка! Имя: {{ $json.name }} Бюджет: {{ $json.budget }} Срочно: {{ $json.urgent }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        16
+      ],
+      "id": "4ae46903-c1fd-428c-9e5c-07f00aa8241f",
+      "name": "Send a text message1",
+      "webhookId": "5f364a65-01d4-495c-8fd7-7404fdac722c",
+      "credentials": {
+        "telegramApi": {
+          "id": "YZpgCocNiMEzfq3c",
+          "name": "Telegram account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "body": {
+            "name": "Иван",
+            "budget": 85000,
+            "urgent": true
+          },
+          "webhookUrl": "https://belol-ai.app.n8n.cloud/webhook-test/e9c745d7-4397-49e0-ba67-d85de84942d0",
+          "executionMode": "test"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "68a237c1-6244-4333-ad18-a2713df4be17",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8e7047195079190fb1b3f3f09496f93ca7cf809807af1b50748fa2b390cec4fc"
+  },
+  "nodeGroups": [],
+  "id": "pnoMh6oKOlSxRNRV",
+  "tags": []
+}
