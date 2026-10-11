@@ -20,3 +20,8 @@
 - Аккаунты n8n и GitHub
 - Базовый workflow с IF
 - Отправка сообщений в Telegram через n8n
+## Что уже сделано
+- Аккаунты n8n и GitHub
+- Базовый workflow с IF + Telegram
+- Webhook + IF + Telegram (принимает JSON и отправляет сообщение)
+- Первый рабочий workflow загружен в репозиторий
